@@ -10,6 +10,7 @@ createApp({
     data(){
         return {
             activeSlide: 0,
+            autoplay: null,
             slides: [
                 {
                     image: 'img/01.jpg',
@@ -40,9 +41,7 @@ createApp({
         }
     },
     created(){
-        setInterval(() =>{
-            this.showNext()
-        },3000)
+        this.startAutoplay();
     },
     methods: {
         showNext(){
@@ -61,6 +60,15 @@ createApp({
         },
         showItem(itemIndex){
             this.activeSlide = itemIndex
+        },
+        stopAutoplay(){
+            clearInterval(this.autoplay);
+            this.autoplay = null;
+        },
+        startAutoplay(){
+            this.autoplay = setInterval(() =>{
+                this.showNext()
+            },3000)
         }
     }
 }).mount("#app")
